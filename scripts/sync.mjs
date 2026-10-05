@@ -1,4 +1,4 @@
-// letscareer.job 게시물 성과 + 캠페인명에 '오공고'가 포함된 광고 성과 수집
+// letscareer.official 게시물 성과 + 광고 성과 수집 (CAMPAIGN_KEYWORD가 비어 있으면 광고 계정의 모든 캠페인 대상)
 // 결과: docs/data/posts.json, docs/data/sync.json, docs/covers/{게시물ID}.jpg
 import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 
@@ -13,9 +13,9 @@ const cfg = {
   token: env("META_ACCESS_TOKEN"),
   graph: `https://graph.facebook.com/${env("GRAPH_VERSION", "v26.0")}`,
   adAccount: env("META_AD_ACCOUNT_ID"),
-  igUsername: env("IG_USERNAME", "letscareer.job"),
+  igUsername: env("IG_USERNAME", "letscareer.official"),
   igUserId: process.env.IG_USER_ID ?? "",
-  keyword: env("CAMPAIGN_KEYWORD", "오공고"),
+  keyword: process.env.CAMPAIGN_KEYWORD ?? "", // 비워 두면 모든 캠페인. 캠페인명에 공통 단어가 있으면 그 단어를 넣기
   startDate: env("START_DATE", "2026-01-01"),
   profileVisitTypes: list(env("AD_PROFILE_VISIT_ACTION_TYPES", "ig_profile_visit,profile_visit")),
 };
@@ -80,7 +80,7 @@ const toKstDate = (ts) => new Date(new Date(normTs(ts)).getTime() + 9 * 3600_000
 const kstToday = () => new Date(Date.now() + 9 * 3600_000).toISOString().slice(0, 10);
 const exists = (p) => access(p).then(() => true, () => false);
 
-// ── 1. 인스타그램 콘텐츠 (letscareer.job) ─────────────────
+// ── 1. 인스타그램 콘텐츠 (letscareer.official) ─────────────────
 const MEDIA_FIELDS =
   "id,caption,media_type,media_product_type,media_url,thumbnail_url,permalink,timestamp,like_count,comments_count," +
   "children{media_type,media_url,thumbnail_url}";
@@ -98,7 +98,7 @@ async function resolveIgUserId() {
   if (!hit) {
     throw new Error(
       `토큰으로 접근 가능한 페이지 중 ${cfg.igUsername} 계정이 연결된 곳이 없습니다. ` +
-        `시스템 사용자에게 letscareer.job이 연결된 페이지 자산 권한을 부여했는지 확인하세요.`,
+        `시스템 사용자에게 ${cfg.igUsername}이 연결된 페이지 자산 권한을 부여했는지 확인하세요.`,
     );
   }
   return hit.id;
@@ -180,7 +180,7 @@ function typeLabel(m) {
   return "이미지";
 }
 
-// ── 2. 광고 ('오공고' 캠페인만, 시작일부터 오늘까지 누적) ──
+// ── 2. 광고 (letscareer.official 게시물을 홍보하는 광고만, 시작일부터 오늘까지 누적) ──
 const sumActions = (actions, types) =>
   (actions ?? []).filter((a) => types.includes(a.action_type)).reduce((s, a) => s + Number(a.value), 0);
 const sumResults = (results, types) =>
@@ -189,25 +189,25 @@ const sumResults = (results, types) =>
 const shortcode = (url) => String(url ?? "").match(/instagram\.com\/(?:[^/]+\/)?(?:p|reel|reels|tv)\/([^/?#]+)/)?.[1] ?? null;
 
 const CREATIVE_FIELDS = "creative{effective_instagram_media_id,instagram_permalink_url}";
-const campaignFilter = () => JSON.stringify([{ field: "campaign.name", operator: "CONTAIN", value: cfg.keyword }]);
+const campaignFilter = () => (cfg.keyword ? JSON.stringify([{ field: "campaign.name", operator: "CONTAIN", value: cfg.keyword }]) : null);
+const withFilter = (params) => { const f = campaignFilter(); return f ? { ...params, filtering: f } : params; };
 
 async function fetchAdInsights() {
   const base = "ad_id,ad_name,campaign_name,spend,impressions,actions";
   const params = {
     level: "ad",
     time_range: JSON.stringify({ since: cfg.startDate, until: kstToday() }),
-    filtering: campaignFilter(),
     limit: "500",
   };
   try {
-    return await graphAll(`${cfg.adAccount}/insights`, { ...params, fields: `${base},objective,optimization_goal,results` });
+    return await graphAll(`${cfg.adAccount}/insights`, withFilter({ ...params, fields: `${base},objective,optimization_goal,results` }));
   } catch (e) {
     if (!(e instanceof GraphError) || e.detail.code !== 100) throw e;
-    return await graphAll(`${cfg.adAccount}/insights`, { ...params, fields: base });
+    return await graphAll(`${cfg.adAccount}/insights`, withFilter({ ...params, fields: base }));
   }
 }
 
-// media 배열에 광고로 찾은 letscareer.job 게시물을 추가할 수 있음
+// media 배열에 광고로 찾은 해당 계정 게시물을 추가할 수 있음
 async function fetchAds(media) {
   const rows = (await fetchAdInsights()).filter((r) => String(r.campaign_name ?? "").includes(cfg.keyword));
 
@@ -224,7 +224,7 @@ async function fetchAds(media) {
     mediaId: ad.creative?.effective_instagram_media_id ?? null,
     permalink: ad.creative?.instagram_permalink_url ?? null,
   });
-  const adList = await graphAll(`${cfg.adAccount}/ads`, { fields: `id,${CREATIVE_FIELDS}`, filtering: campaignFilter(), limit: "200" });
+  const adList = await graphAll(`${cfg.adAccount}/ads`, withFilter({ fields: `id,${CREATIVE_FIELDS}`, limit: "200" }));
   for (const ad of adList) linkOf.set(ad.id, toLink(ad));
   for (const r of rows) {
     if (linkOf.has(r.ad_id)) continue;
@@ -242,7 +242,7 @@ async function fetchAds(media) {
   const lookedUp = new Map(); // 게시물 ID → 조회 결과
   let addedFromAds = 0;
 
-  // 목록에서 못 찾은 게시물은 ID로 직접 조회해서 letscareer.job 게시물이면 추가
+  // 목록에서 못 찾은 게시물은 ID로 직접 조회해서 해당 계정 게시물이면 추가
   async function resolve(link) {
     if (ids.has(link.mediaId)) return { target: link.mediaId };
     const code = shortcode(link.permalink);

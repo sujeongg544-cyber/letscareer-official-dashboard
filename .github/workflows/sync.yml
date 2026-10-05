@@ -29,6 +29,7 @@ jobs:
           META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
           META_AD_ACCOUNT_ID: act_356669339700370
           IG_USERNAME: letscareer.official
+          IG_USER_ID: "17841451879798020" # letscareer.official 계정 ID (페이지 연결 없이 바로 조회)
           CAMPAIGN_KEYWORD: 
           START_DATE: "2026-01-01"
           GRAPH_VERSION: v26.0

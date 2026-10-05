@@ -28,8 +28,8 @@ jobs:
         env:
           META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
           META_AD_ACCOUNT_ID: act_356669339700370
-          IG_USERNAME: letscareer.job
-          CAMPAIGN_KEYWORD: 오공고
+          IG_USERNAME: letscareer.official
+          CAMPAIGN_KEYWORD: 
           START_DATE: "2026-01-01"
           GRAPH_VERSION: v26.0
           AD_PROFILE_VISIT_ACTION_TYPES: profile_visit_view

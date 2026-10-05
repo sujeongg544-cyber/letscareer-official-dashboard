@@ -104,6 +104,19 @@ async function resolveIgUserId() {
   return hit.id;
 }
 
+// 조회할 계정이 진짜 IG_USERNAME 계정인지 확인 (다른 계정 데이터가 섞여 들어오는 걸 막음)
+async function verifyIgAccount(igUserId) {
+  const acc = await graph(igUserId, { fields: "username" });
+  console.log(`조회 대상 계정: @${acc.username} (ID ${igUserId})`);
+  if (acc.username !== cfg.igUsername) {
+    throw new Error(
+      `IG_USER_ID(${igUserId})는 @${acc.username} 계정입니다. 기대한 계정은 @${cfg.igUsername}이에요. ` +
+        `.github/workflows의 IG_USER_ID 값을 확인하세요.`,
+    );
+  }
+  return acc.username;
+}
+
 async function listMedia(igUserId) {
   const since = new Date(`${cfg.startDate}T00:00:00+09:00`).getTime();
   const out = [];
@@ -373,6 +386,7 @@ async function main() {
   await mkdir(COVER_DIR, { recursive: true });
 
   const igUserId = await resolveIgUserId();
+  const verifiedUsername = await verifyIgAccount(igUserId);
   const media = await listMedia(igUserId);
   const listed = media.length;
   console.log(`${cfg.igUsername} 게시물 목록 ${listed}개 확인`);
@@ -450,6 +464,8 @@ async function main() {
   const sync = {
     syncedAt: new Date().toISOString(),
     account: cfg.igUsername,
+    verifiedUsername,
+    igUserId,
     campaignKeyword: cfg.keyword,
     startDate: cfg.startDate,
     mediaListed: listed,

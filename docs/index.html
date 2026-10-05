@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
-<title>letscareer.job 성과 대시보드</title>
+<title>letscareer.official 성과 대시보드</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 <style>
   :root {
@@ -166,8 +166,8 @@
   <div class="wrap head">
     <div class="title-row">
       <div>
-        <h1>letscareer.job 성과</h1>
-        <p class="desc">2026년 1월 이후 게시물과 '오공고' 캠페인 광고, 매일 오전 8시 갱신</p>
+        <h1>letscareer.official 성과</h1>
+        <p class="desc">2026년 1월 이후 게시물과 광고 성과, 매일 오전 8시 갱신</p>
         <p class="synced" id="synced"></p>
       </div>
     </div>
@@ -270,8 +270,8 @@
 // ─────────── 설정 ───────────
 const SUPABASE_URL = "https://nfnhapavxiyobacvdrym.supabase.co";
 const SUPABASE_KEY = "sb_publishable_ccSDumhVOOgG5aGqrHrUGQ_zMB2cVja";
-const CATEGORIES = ["시의성","공고모음","공고분석","직무추천해","리소스"];
-const PEOPLE = ["김수정","이예원","김현조","박재영","김민지"];
+const CATEGORIES = ["경험정리","이력서","자소서","포폴","면접","인적성","공채","기타"];
+const PEOPLE = ["김수정","김민지","김학배","김현조","신수현","이시원"];
 
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -443,7 +443,7 @@ async function upsertMeta(p, patch) {
     kpt_keep: p.meta.kpt_keep || null, kpt_problem: p.meta.kpt_problem || null, kpt_try: p.meta.kpt_try || null,
     updated_at: new Date().toISOString(),
   };
-  const { error } = await db.from("ogongo_content").upsert(payload, { onConflict: "shortcode" });
+  const { error } = await db.from("official_content").upsert(payload, { onConflict: "shortcode" });
   if (error) { p.meta = prev; toast("저장 실패: " + error.message); renderRetro(); return false; }
   return true;
 }
@@ -498,7 +498,7 @@ $("s-save").onclick = async () => {
     updated_at: new Date().toISOString(),
   };
   $("s-save").disabled = true; $("s-save").textContent = "저장 중…";
-  const { error } = await db.from("ogongo_content").upsert(payload, { onConflict: "shortcode" });
+  const { error } = await db.from("official_content").upsert(payload, { onConflict: "shortcode" });
   $("s-save").disabled = false; $("s-save").textContent = "저장";
   if (error) { toast("저장 실패: " + error.message); return; }
   current.meta = { category: payload.category, person: payload.person, ad_follows: payload.ad_follows, kpt_keep: payload.kpt_keep, kpt_problem: payload.kpt_problem, kpt_try: payload.kpt_try };
@@ -518,7 +518,7 @@ document.querySelectorAll(".tab").forEach((t) => t.onclick = () => {
 // ─────────── 로딩 ───────────
 async function loadManual() {
   try {
-    const { data, error } = await db.from("ogongo_content").select("*");
+    const { data, error } = await db.from("official_content").select("*");
     if (error) throw error;
     const map = new Map();
     for (const row of data) map.set(row.shortcode, row);

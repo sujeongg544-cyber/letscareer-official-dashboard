@@ -1,90 +1,83 @@
 {
-  "syncedAt": "2026-10-05T14:47:23.884Z",
-  "account": "letscareer.job",
-  "campaignKeyword": "오공고",
+  "syncedAt": "2026-10-05T15:02:38.450Z",
+  "account": "letscareer.official",
+  "campaignKeyword": "",
   "startDate": "2026-01-01",
-  "mediaListed": 324,
-  "mediaCount": 325,
+  "mediaListed": 235,
+  "mediaCount": 235,
   "mediaRange": {
     "oldest": "2026-01-01",
-    "newest": "2026-10-05"
+    "newest": "2026-10-04"
   },
-  "addedFromAds": 47,
+  "addedFromAds": 1,
   "mergedAdPosts": {
-    "count": 46,
+    "count": 1,
     "sample": [
       {
-        "adPost": "https://www.instagram.com/p/DXwLvm2DDM5/",
-        "mergedInto": "https://www.instagram.com/p/DXrPuFjjwbM/"
-      },
-      {
-        "adPost": "https://www.instagram.com/p/DXwL5vCjAMR/",
-        "mergedInto": "https://www.instagram.com/p/DXo2UNND7Rj/"
-      },
-      {
-        "adPost": "https://www.instagram.com/p/DX9MLinjNfF/",
-        "mergedInto": "https://www.instagram.com/p/DX63ZGWD2IC/"
-      },
-      {
-        "adPost": "https://www.instagram.com/p/DYUxqUjDIs7/",
-        "mergedInto": "https://www.instagram.com/p/DYRUDX8jzQF/"
-      },
-      {
-        "adPost": "https://www.instagram.com/p/DYUxqO8DM75/",
-        "mergedInto": "https://www.instagram.com/p/DYPYKqrDw7G/"
+        "adPost": "https://www.instagram.com/p/DdDsDsaDFzu/",
+        "mergedInto": "https://www.instagram.com/p/Dc2_DJ2j-BV/"
       }
     ]
   },
-  "adOnlyPosts": 1,
-  "adCount": 49,
-  "adsMatched": 47,
-  "adsWithoutPost": 2,
-  "adsUnmatched": 0,
-  "unmatchedSample": [],
+  "adOnlyPosts": 0,
+  "adCount": 235,
+  "adsMatched": 1,
+  "adsWithoutPost": 4,
+  "adsUnmatched": 230,
+  "unmatchedSample": [
+    {
+      "ad": "Instagram Post",
+      "permalink": "https://www.instagram.com/p/CfyCZrRjn2H/",
+      "owner": "letscareer.official (2022-07-09)"
+    },
+    {
+      "ad": "Instagram 게시물: 렛츠인턴이 인턴 선배 세션과 함께 돌아왔습니다➿ 이번 방학...",
+      "permalink": "https://www.instagram.com/p/Cf6k3wdj1jn/",
+      "owner": "letscareer.official (2022-07-12)"
+    },
+    {
+      "ad": "Instagram Post",
+      "permalink": "https://www.instagram.com/p/Cf6k_LPjcMV/",
+      "owner": "letscareer.official (2022-07-12)"
+    },
+    {
+      "ad": "Instagram 게시물: 렛츠인턴과 같이 인턴생활 기록하실 분?! 🏃‍♂️🙌🏽...",
+      "permalink": "https://www.instagram.com/p/CkKhKCBj6R6/",
+      "owner": "조회 실패: Unsupported get request. Object with ID '17898350624691883' does not exist, cannot be loaded due to missing permissions, or does not support this operation. Please read the Graph API documentation at https://developers.facebook.com/docs/graph-api"
+    },
+    {
+      "ad": "Instagram 게시물: 🏃‍♂️렛츠인턴과 함께 하는 인턴준비 챌린지 [준비 코스]...",
+      "permalink": "https://www.instagram.com/p/CkKt61gjZFa/",
+      "owner": "조회 실패: Unsupported get request. Object with ID '17972072764884109' does not exist, cannot be loaded due to missing permissions, or does not support this operation. Please read the Graph API documentation at https://developers.facebook.com/docs/graph-api"
+    }
+  ],
   "adPostsWithFollows": 0,
-  "adPosts": 47,
+  "adPosts": 1,
   "objectives": [
+    "LINK_CLICKS / LANDING_PAGE_VIEWS",
     "LINK_CLICKS / LINK_CLICKS",
-    "LINK_CLICKS / PROFILE_VISIT"
+    "LINK_CLICKS / PROFILE_VISIT",
+    "LINK_CLICKS / VISIT_INSTAGRAM_PROFILE"
   ],
   "resultIndicators": [
     "actions:link_click",
+    "actions:omni_landing_page_view",
     "profile_visit_view"
   ],
   "unsupportedMetrics": {
-    "AD": [
-      "views",
-      "likes",
-      "comments",
-      "shares",
+    "REELS": [
       "profile_visits",
       "follows"
     ]
   },
   "insightErrors": [
     {
-      "error": "AD | (#100) The Media Insights API does not support the views metric for this media product type.",
-      "posts": 1
+      "error": "REELS | (#100) The Media Insights API does not support the profile_visits metric for this media product type.",
+      "posts": 5
     },
     {
-      "error": "AD | (#100) The Media Insights API does not support the likes metric for this media product type.",
-      "posts": 1
-    },
-    {
-      "error": "AD | (#100) The Media Insights API does not support the comments metric for this media product type.",
-      "posts": 1
-    },
-    {
-      "error": "AD | (#100) The Media Insights API does not support the shares metric for this media product type.",
-      "posts": 1
-    },
-    {
-      "error": "AD | (#100) The Media Insights API does not support the profile_visits metric for this media product type.",
-      "posts": 1
-    },
-    {
-      "error": "AD | (#100) The Media Insights API does not support the follows metric for this media product type.",
-      "posts": 1
+      "error": "REELS | (#100) The Media Insights API does not support the follows metric for this media product type.",
+      "posts": 5
     }
   ]
 }

@@ -1,15 +1,15 @@
 {
-  "syncedAt": "2026-10-07T23:04:19.673Z",
+  "syncedAt": "2026-10-08T23:06:08.368Z",
   "account": "letscareer.official",
   "verifiedUsername": "letscareer.official",
   "igUserId": "17841451879798020",
   "campaignKeyword": "",
   "startDate": "2026-01-01",
-  "mediaListed": 237,
-  "mediaCount": 237,
+  "mediaListed": 239,
+  "mediaCount": 239,
   "mediaRange": {
     "oldest": "2026-01-01",
-    "newest": "2026-10-07"
+    "newest": "2026-10-08"
   },
   "addedFromAds": 1,
   "mergedAdPosts": {
@@ -22,10 +22,10 @@
     ]
   },
   "adOnlyPosts": 0,
-  "adCount": 235,
+  "adCount": 236,
   "adsMatched": 1,
   "adsWithoutPost": 4,
-  "adsUnmatched": 230,
+  "adsUnmatched": 231,
   "unmatchedSample": [
     {
       "ad": "Instagram Post",

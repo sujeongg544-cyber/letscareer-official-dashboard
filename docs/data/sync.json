@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-10-11T23:05:22.980Z",
+  "syncedAt": "2026-10-12T23:07:45.333Z",
   "account": "letscareer.official",
   "verifiedUsername": "letscareer.official",
   "igUserId": "17841451879798020",
@@ -75,11 +75,11 @@
   "insightErrors": [
     {
       "error": "REELS | (#100) The Media Insights API does not support the profile_visits metric for this media product type.",
-      "posts": 5
+      "posts": 4
     },
     {
       "error": "REELS | (#100) The Media Insights API does not support the follows metric for this media product type.",
-      "posts": 5
+      "posts": 4
     }
   ]
 }

@@ -1,15 +1,15 @@
 {
-  "syncedAt": "2026-10-15T23:11:32.769Z",
+  "syncedAt": "2026-10-17T00:54:36.553Z",
   "account": "letscareer.official",
   "verifiedUsername": "letscareer.official",
   "igUserId": "17841451879798020",
   "campaignKeyword": "",
   "startDate": "2026-01-01",
-  "mediaListed": 246,
-  "mediaCount": 246,
+  "mediaListed": 248,
+  "mediaCount": 248,
   "mediaRange": {
     "oldest": "2026-01-01",
-    "newest": "2026-10-15"
+    "newest": "2026-10-16"
   },
   "addedFromAds": 1,
   "mergedAdPosts": {
@@ -22,9 +22,9 @@
     ]
   },
   "adOnlyPosts": 0,
-  "adCount": 245,
+  "adCount": 246,
   "adsMatched": 1,
-  "adsWithoutPost": 4,
+  "adsWithoutPost": 5,
   "adsUnmatched": 240,
   "unmatchedSample": [
     {
@@ -75,11 +75,11 @@
   "insightErrors": [
     {
       "error": "REELS | (#100) The Media Insights API does not support the profile_visits metric for this media product type.",
-      "posts": 4
+      "posts": 3
     },
     {
       "error": "REELS | (#100) The Media Insights API does not support the follows metric for this media product type.",
-      "posts": 4
+      "posts": 3
     }
   ]
 }

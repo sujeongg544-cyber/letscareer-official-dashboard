@@ -1,29 +1,33 @@
 {
-  "syncedAt": "2026-10-21T01:06:37.273Z",
+  "syncedAt": "2026-10-22T01:04:20.841Z",
   "account": "letscareer.official",
   "verifiedUsername": "letscareer.official",
   "igUserId": "17841451879798020",
   "campaignKeyword": "",
   "startDate": "2026-01-01",
-  "mediaListed": 251,
-  "mediaCount": 251,
+  "mediaListed": 252,
+  "mediaCount": 252,
   "mediaRange": {
     "oldest": "2026-01-01",
-    "newest": "2026-10-20"
+    "newest": "2026-10-21"
   },
-  "addedFromAds": 1,
+  "addedFromAds": 2,
   "mergedAdPosts": {
-    "count": 1,
+    "count": 2,
     "sample": [
       {
         "adPost": "https://www.instagram.com/p/DdDsDsaDFzu/",
         "mergedInto": "https://www.instagram.com/p/Dc2_DJ2j-BV/"
+      },
+      {
+        "adPost": "https://www.instagram.com/p/DewuZhqs3wd/",
+        "mergedInto": "https://www.instagram.com/p/Ded5XJxmE2-/"
       }
     ]
   },
   "adOnlyPosts": 0,
-  "adCount": 248,
-  "adsMatched": 1,
+  "adCount": 249,
+  "adsMatched": 2,
   "adsWithoutPost": 5,
   "adsUnmatched": 242,
   "unmatchedSample": [
@@ -54,7 +58,7 @@
     }
   ],
   "adPostsWithFollows": 0,
-  "adPosts": 1,
+  "adPosts": 2,
   "objectives": [
     "LINK_CLICKS / LANDING_PAGE_VIEWS",
     "LINK_CLICKS / LINK_CLICKS",

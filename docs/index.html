@@ -152,7 +152,28 @@
   .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--ink); color:#fff; padding:12px 18px; border-radius:10px; font-size:13px; font-weight:600; opacity:0; transition:.25s; z-index:60; pointer-events:none; max-width:90vw; text-align:center; }
   .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-  @media (max-width: 960px) { .summary { grid-template-columns: repeat(3, 1fr); } }
+  /* ── 과거 인사이트 ── */
+  .ins-intro { margin:0 0 18px; font-size:13px; color:var(--sub); }
+  .ins-intro b { color:var(--ink); font-weight:700; }
+  .ins-cols { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; align-items:start; }
+  .ins-col { background:var(--white); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .ins-col-head { padding:16px 18px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:10px; }
+  .ins-badge { width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:800; color:#fff; flex:none; }
+  .ins-col.k .ins-badge { background:var(--ok); } .ins-col.p .ins-badge { background:var(--warn); } .ins-col.t .ins-badge { background:var(--brand); }
+  .ins-col-head h3 { margin:0; font-size:14px; font-weight:800; }
+  .ins-col-head small { display:block; font-size:11px; color:var(--sub); font-weight:600; margin-top:1px; }
+  .ins-list { padding:10px 12px 14px; }
+  .ins-card { border:1px solid var(--line); border-radius:10px; padding:12px 13px; margin-bottom:10px; }
+  .ins-card:last-child { margin-bottom:0; }
+  .ins-card-top { display:flex; align-items:flex-start; gap:8px; justify-content:space-between; }
+  .ins-card-top .tt { font-size:13.5px; font-weight:700; line-height:1.4; }
+  .ins-cnt { flex:none; font-size:11px; font-weight:700; color:var(--sub); background:var(--surface); border-radius:20px; padding:3px 9px; white-space:nowrap; }
+  .ins-d { margin:7px 0 0; font-size:12px; line-height:1.6; color:#4A5160; }
+  .ins-ex { margin-top:9px; border-top:1px dashed var(--line); padding-top:9px; display:flex; flex-direction:column; gap:7px; }
+  .ins-ex .e { font-size:11.5px; line-height:1.5; color:var(--sub); }
+  .ins-ex .e .qt { color:var(--ink); }
+  .ins-ex .e .src { display:block; margin-top:1px; color:#9AA3B5; font-size:10.5px; }
+  @media (max-width: 960px) { .summary { grid-template-columns: repeat(3, 1fr); } .ins-cols { grid-template-columns:1fr; } }
   @media (max-width: 600px) {
     .wrap { padding: 0 16px; }
     .summary { grid-template-columns: repeat(2, 1fr); }
@@ -174,6 +195,7 @@
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" aria-selected="true" data-tab="gallery">갤러리</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="retro">회고</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="insights">과거 인사이트</button>
     </div>
   </div>
 </header>
@@ -222,6 +244,12 @@
         <tbody id="r-tbody"></tbody>
       </table>
     </div></div>
+  </section>
+
+  <!-- 과거 인사이트 탭 -->
+  <section class="panel" id="p-insights" role="tabpanel" hidden>
+    <p class="ins-intro" id="ins-intro"></p>
+    <div class="ins-cols" id="ins-cols"></div>
   </section>
 </main>
 
@@ -508,11 +536,143 @@ $("s-save").onclick = async () => {
   closeSheet();
 };
 
+// ─────────── 과거 인사이트 탭 ───────────
+const INSIGHTS = {
+  "meta": { "source": "Notion '오피셜 인스타그램 콘텐츠 캘린더'", "n": 340, "range": "2025.03 ~ 2026.10" },
+  "K": [
+    { "t": "썸네일·카피가 성패의 8할", "n": 91,
+      "d": "가장 많이 반복된 KEEP. 취준생이 실제로 하는 질문/고민을 그대로, '이력서·자소서'처럼 포괄적이 아니라 특정 경험으로 뾰족하게, 짧고 큰 글씨로. '합격·이유·탈락' 등 후킹 단어가 반응을 끌어올림.",
+      "ex": [ { "q": "‘이력서/자기소개서’처럼 포괄적 카피가 아닌 특정 경험·뾰족한 카피여야 유입이 많아짐", "m": "2026 이력서 이렇게 내세요" },
+              { "q": "‘자소서 쓸 때 무슨 경험 넣을지 고민만 2시간’ 카피는 반복 사용에도 공감 반응이 안정적", "m": "승태님 인터뷰 → 자소서 챌린지" } ] },
+    { "t": "정보성 → 챌린지 자연스러운 연결", "n": 43,
+      "d": "페인포인트 공감 → 해결 정보(예시) → '혼자 어려우면 챌린지' 흐름. 특히 '왜 챌린지가 필요한지'를 뒷단이 아니라 앞단(2페이지)에서 먼저 제시할 때 전환이 잘 붙음.",
+      "ex": [ { "q": "2페이지부터 ‘이 챌린지가 너한테 필요해’ 명시 → 예시 → 수강 플로우가 잘 먹힘", "m": "동아리/서포터즈 경험 이력서에 넣는 법" },
+              { "q": "정보와 CTA가 자연스럽게 이어져야 유의미한 성과가 난다 → 이 플로우를 꾸준히", "m": "공채 정보성 → 대기업 챌린지" } ] },
+    { "t": "타겟의 실제 질문·톡방 언어 활용", "n": 40,
+      "d": "쥬디 톡방·직무별 오픈채팅에서 유저가 실제로 묻는 질문을 소스로 콘텐츠화하는 시스템이 반복적으로 통함. 유저의 언어 그대로가 후킹.",
+      "ex": [ { "q": "쥬디 톡방 유저 질문 → 담당자 소스 정리 → 콘텐츠화 시스템 굳", "m": "이/자/포 같은 내용 쓰나요" },
+              { "q": "직무별 톡방에서 자주 묻는 질문·고민을 콘텐츠로 더 많이 제작", "m": "취준생이 할만한 SNS 주제" } ] },
+    { "t": "위닝 콘텐츠 재활용·복제", "n": 30,
+      "d": "잘 된 콘텐츠의 썸네일만 바꿔 재업로드하거나, 6개월 지난 위닝 콘텐츠를 재가공, 트렌드 체크리스트 템플릿을 복제. 적은 리소스로 안정적 성과.",
+      "ex": [ { "q": "기존에 잘 된 콘텐츠를 썸네일만 수정해 재업로드 → 팔로워·비팔로워 모두 크게 도달", "m": "이챌 홍보포스트 (조회 16만)" },
+              { "q": "[2025 포폴 트렌드 바뀐 거 아직 몰라?] 위닝 콘텐츠 복제 성공", "m": "2026 채용 트렌드 → 이챌/포폴" } ] },
+    { "t": "합격 예시·실제 사례·후기", "n": 24,
+      "d": "예시가 꽉 찬 콘텐츠는 '저장하고 다시 볼' 이유가 되어 저장·신뢰도가 오름. 실제 사례 유무에 따라 성과가 크게 갈림.",
+      "ex": [ { "q": "합격 이력서 예시/트렌드를 1페이지에 넣은 부분이 후킹 → 저장 유도", "m": "1주일 만에 이력서 완성" },
+              { "q": "실제 사례 유무에 따라 콘텐츠 성과가 크게 달라짐", "m": "공채 이력서 만들기" } ] },
+    { "t": "인터뷰·스토리텔링·오리지널리티", "n": 18,
+      "d": "다른 데서 볼 수 없는 경험담/스토리텔링이 그냥 홍보성 콘텐츠보다 성과가 좋음. '나의 경험·생각'이라는 오리지널리티가 핵심.",
+      "ex": [ { "q": "스토리텔링 형식이 그냥 홍보성 콘텐츠보다 성과가 잘 나온다", "m": "희정님 스토리텔링 → 웨비나" },
+              { "q": "결국 콘텐츠는 오리지널리티 = 나의 경험·나의 정리", "m": "미마콘 8 마케팅 직무 트렌드" } ] },
+    { "t": "MZ·감성 썸네일 / 캐릭터·연예인", "n": 15,
+      "d": "표지에 얼굴이 크게 나오거나 귀여운 캐릭터·아이돌 짤을 쓰면 조회가 확실히 잘 나옴. 단, 과하면 매거진·엔터 계정처럼 보일 위험은 경계.",
+      "ex": [ { "q": "표지에 얼굴이 나와야 확실히 조회를 잘한다", "m": "미마콘 → 무료 웨비나" },
+              { "q": "힙한 아이돌 사진도 한 몫 한 것 같다 (잘 된 썸네일 카피 벤치마킹)", "m": "이시원님 웨비나 정보성" } ] },
+    { "t": "시의성(시즌) 소구", "n": 21,
+      "d": "공채·방학·졸업·추석·연말·D-day 등 '지금 취준생의 상황'을 건드리는 시기 카피가 반응을 끌어올림.",
+      "ex": [ { "q": "[공채 뜨기 전에 경험정리 미리 해둬] 시의성 잡은 제목 카피", "m": "경험정리 (공채 시작 전)" },
+              { "q": "D-90 날짜 활용 + 시기 적절한 감성글 + 취준 루틴이 잘 먹힘", "m": "추석 끝나고 공채 복귀하는 법" } ] },
+    { "t": "댓글 이벤트·인게이지먼트 플레이", "n": 9,
+      "d": "최근 급부상. '댓글 달면 자료 보내줌'이 프로필 링크 클릭보다 허들이 낮아 노출·인게이지먼트를 끌어올림. 단, 제공 자료가 타겟이 진짜 원하는 것이어야 함.",
+      "ex": [ { "q": "프로필 링크 클릭보다 댓글 달기가 더 쉽다 → 마지막 페이지를 댓글 이벤트로", "m": "합격자 인터뷰 + 댓글 이벤트" },
+              { "q": "댓글 이벤트는 ‘유저가 진짜 갖고 싶어하는 자료(예시/멘토 답변)’일 때 먹힌다", "m": "상담소 릴스 2 (역질문)" } ] }
+  ],
+  "P": [
+    { "t": "외부링크 클릭(전환)이 최대 병목", "n": 69,
+      "d": "가장 반복되는 PROBLEM. 조회·좋아요·저장은 좋은데 외부링크 클릭만 처참한 경우가 압도적. '이 정보로 충분하다'며 저장만 하고 이탈하는 심리가 핵심 원인.",
+      "ex": [ { "q": "다른 지표 다 좋은데 외부링크가 이것밖에 안 나왔다니, 사실상 망한 콘텐츠", "m": "인사담당자가 5초 읽고 탈락시키는 자소서 (조회 94만)" },
+              { "q": "저장은 많은 걸 보면 이 정도 정보만 가져가도 충분하다고 생각하나?", "m": "비전공자가 마케터 되는 법" } ] },
+    { "t": "썸네일·카피 후킹 실패", "n": 78,
+      "d": "'썸네일, 썸네일, 썸네일!!' 카피가 직관적이지 않거나 이해가 안 되거나 매력적이지 않아 첫 유입 자체가 꺾인 사례가 반복.",
+      "ex": [ { "q": "썸네일이 매력적이지 않았던 것 같다. 비팔로워 조회수 매우 낮음", "m": "마케팅 SQLD 자격증 따야 돼?" },
+              { "q": "조회수가 적은데 썸네일 카피가 문제인가. 이해가 안 되는 카피", "m": "이력서 정보성 → 이챌" } ] },
+    { "t": "팔로우 전환이 안 됨", "n": 46,
+      "d": "비팔로워 도달·반응은 높은데 팔로우로 이어지지 않는 경우가 많음. 특히 가벼운 인지형 콘텐츠는 '팔로우할 정도는 아니다'로 끝남.",
+      "ex": [ { "q": "인지 타겟의 가벼운 콘텐츠로는 팔로우를 정말 안 한다는 것을 확인", "m": "취준생 10명 중 7명 연애 포기?" },
+              { "q": "팔로우가 적은 건 비팔로워가 보기에 팔로우할 정도는 아니라는 뜻", "m": "미인콘 2" } ] },
+    { "t": "연결 부자연·소구점 불명확", "n": 41,
+      "d": "정보와 챌린지/세미나의 연결이 억지스럽거나, 하나의 핵심 소구점이 안 잡혀 '그래서 뭘 말하려는 거지?'가 되는 사례.",
+      "ex": [ { "q": "연결고리가 없는 두 주제를 억지로 연결하려다 생긴 부작용", "m": "GA/IT 서류 트렌드 VOD 홍보" },
+              { "q": "스토리는 좋았지만 하나의 핵심 주제가 뭘까 하는 느낌, 실질 팁이 아쉬움", "m": "인터뷰 → 마챌 웨비나" } ] },
+    { "t": "정보 과다 → 가독성·흐름 이탈", "n": 35,
+      "d": "한 페이지 텍스트가 너무 많아 압도당하거나, 뒤로 갈수록 좋아요가 급감하며 끝까지 안 보는 흐름 문제.",
+      "ex": [ { "q": "한 페이지에 들어있는 텍스트가 많아 압도당하는 느낌", "m": "미인콘 → HR 챌린지" },
+              { "q": "뒤로 갈수록 좋아요 수가 적어져 끝까지 보는 사람이 없음 = 흐름 부족", "m": "자유양식 자소서 쓰는 법" } ] },
+    { "t": "타겟·주제 미스핏", "n": 34,
+      "d": "렛커 팔로워의 니즈와 맞지 않는 직무/주제이거나, 타겟이 너무 좁거나 반대로 너무 뻔해서 반응이 저조.",
+      "ex": [ { "q": "렛커 팔로워들이 대기업 공채에 생각보다 니즈가 적을 수도", "m": "공채할 땐 OO!" },
+              { "q": "SNS 주제가 너무 뻔하고 누구나 생각할 수 있는 점", "m": "취준생이 할만한 SNS 주제" } ] },
+    { "t": "광고·홍보 느낌 과다", "n": 25,
+      "d": "'너무 광고 같아서' 이탈하거나, 홍보 비중이 정보 비중보다 커서 외부링크 클릭이 꺾이는 사례.",
+      "ex": [ { "q": "광고라는 내용이 너무 빨리 나와서 외부링크 클릭이 많지 않음", "m": "PM 서류 합격 POINT" },
+              { "q": "정보 3페이지, 홍보 7페이지 — 홍보 비중이 너무 컸다", "m": "윤정님 대기업 웨비나 → VOD" } ] }
+  ],
+  "T": [
+    { "t": "카피 뾰족하게 · 톡방 언어로", "n": 65,
+      "d": "가장 많이 제안된 TRY. 포괄적 키워드 대신 특정 경험·뾰족한 타겟으로, 그리고 톡방 속 실제 취준생의 고민·언어를 카피에 녹이기.",
+      "ex": [ { "q": "포괄적으로 말고 특정 경험·뾰족하게 카피를 적어야 유입이 많아진다", "m": "2026 이력서 이렇게 내세요" },
+              { "q": "톡방에서 실제 취준생이 하는 고민·언어를 카피 설계에 적극 활용", "m": "이력서 챌린지 (톡방 카피)" } ] },
+    { "t": "포맷 실험 지속(릴스·인터뷰·유형진단·밈)", "n": 57,
+      "d": "릴스/영상 캐러셀/인터뷰/밈/유형진단 등 포맷을 트렌드에 맞춰 계속 바꿔가며 테스트. 같은 포맷만 가면 도파민이 떨어진다는 경계.",
+      "ex": [ { "q": "포맷은 트렌드에 맞춰 한 달에 한 번 정도 계속 변경해보는 게 좋다", "m": "혜련의 마케팅 인턴 서류 합격" },
+              { "q": "유형 확인 → 해결책 구조의 콘텐츠가 조회수가 잘 나온다", "m": "현직자 인터뷰 → 경챌" } ] },
+    { "t": "CTA·전환 페이지 구조 개선", "n": 54,
+      "d": "챌린지 설명 페이지를 따로 넣거나 분리하고, 정보 → 외부링크 클릭으로 넘어가는 페이지 흐름을 '안내'가 아닌 '해결책'으로 설계.",
+      "ex": [ { "q": "정보→외부링크 클릭 유도로 넘어가는 페이지 흐름을 잘 만들어야 한다", "m": "인사담당자가 5초 읽고 탈락" },
+              { "q": "챌린지 설명 페이지를 꼭 추가하고 마지막 CTA에 하이라이트", "m": "이력서 관련 질문 4가지" } ] },
+    { "t": "댓글 이벤트·온드미디어 확산", "n": 29,
+      "d": "댓글 이벤트로 노션/자료를 보내며 내부에 홍보 링크를 심고, 신청 폼을 톡방·뉴스레터·블로그 등 온드미디어에 더 뿌려 유입을 확대.",
+      "ex": [ { "q": "폼을 톡방/뉴스레터/블로그 등 온드미디어 채널에 더 뿌려보자", "m": "상담소 사연 1번" },
+              { "q": "댓글 이벤트로 노션 보낼 때 내부에 홍보 프로그램 링크 3개 이상 넣기", "m": "인적성 3주 플랜 릴스" } ] },
+    { "t": "FOMO·손실회피 후킹", "n": 25,
+      "d": "'아직 몰라?', '너만 모르는 중', '탈락' 등 불안·손실회피를 자극하는 카피가 공감 후킹으로 반복 효과.",
+      "ex": [ { "q": "‘미루고 있어? 아직도 안 했어? 너만 모르는 중’ FOMO 후킹을 계속 시도", "m": "경험정리 1주컷 (조회 5만)" },
+              { "q": "‘탈락’으로 손실회피를 자극하는 게 먹혔던 포인트", "m": "자소서 끝까지 읽게 만드는 법" } ] },
+    { "t": "정보 덜 주고 상페·챌린지로 유도", "n": 23,
+      "d": "예시를 일부러 적게 넣어 '줄듯 말듯' 플레이로 상세페이지 유입·외부링크 클릭을 끌어올리는 실험.",
+      "ex": [ { "q": "예시를 적게 주고 상페 유입을 늘려보자 (많으면 저장하고 빠짐)", "m": "동아리 경험 이력서에 넣는 법" },
+              { "q": "정보를 줄듯 안 줄듯한 플레이를 해봐야 링크클릭률이 오를 것", "m": "팀플/대외활동 경험 이력서에" } ] },
+    { "t": "레퍼런스 벤치마킹 + 각색", "n": 13,
+      "d": "타 계정 썸네일·포맷을 참고하되, 포맷만 베끼지 말고 주제·내용을 우리 채널 유저 성향에 맞춰 각색.",
+      "ex": [ { "q": "레퍼런스 포맷만 참고가 아니라 주제·내용을 우리 유저에 맞춰 각색", "m": "공주들아 3월 준비해야지" },
+              { "q": "잘 된 썸네일 카피를 주제에 맞게 변형해 벤치마킹", "m": "이시원님 웨비나 정보성" } ] }
+  ]
+};
+const INS_COLS = [
+  { key: "K", cls: "k", label: "Keep", sub: "계속 가져갈 것" },
+  { key: "P", cls: "p", label: "Problem", sub: "반복되는 병목" },
+  { key: "T", cls: "t", label: "Try", sub: "다음에 시도할 것" },
+];
+function insCard(it) {
+  const ex = (it.ex || []).map((e) => `<div class="e"><span class="qt">“${esc(e.q)}”</span><span class="src">— ${esc(e.m)}</span></div>`).join("");
+  return `<div class="ins-card">
+    <div class="ins-card-top"><div class="tt">${esc(it.t)}</div><span class="ins-cnt">${it.n}건</span></div>
+    <p class="ins-d">${esc(it.d)}</p>
+    ${ex ? `<div class="ins-ex">${ex}</div>` : ""}
+  </div>`;
+}
+let insDone = false;
+function renderInsights() {
+  if (insDone) return;
+  const m = INSIGHTS.meta;
+  $("ins-intro").innerHTML = `노션 ${esc(m.source)}의 KPT 회고 <b>${m.n}건</b>(${esc(m.range)})을 모아 요약한 인사이트입니다. 각 항목의 ‘N건’은 해당 패턴이 언급된 회고 수(중복 포함, 근사치)예요.`;
+  $("ins-cols").innerHTML = INS_COLS.map((c) => {
+    const items = (INSIGHTS[c.key] || []).slice().sort((a, b) => b.n - a.n);
+    return `<div class="ins-col ${c.cls}">
+      <div class="ins-col-head"><span class="ins-badge">${c.key}</span><div><h3>${c.label}</h3><small>${c.sub} · ${items.length}개 패턴</small></div></div>
+      <div class="ins-list">${items.map(insCard).join("")}</div>
+    </div>`;
+  }).join("");
+  insDone = true;
+}
+
 // ─────────── 탭 ───────────
 document.querySelectorAll(".tab").forEach((t) => t.onclick = () => {
   document.querySelectorAll(".tab").forEach((x) => x.setAttribute("aria-selected", x === t));
   $("p-gallery").hidden = t.dataset.tab !== "gallery";
   $("p-retro").hidden = t.dataset.tab !== "retro";
+  $("p-insights").hidden = t.dataset.tab !== "insights";
+  if (t.dataset.tab === "insights") renderInsights();
 });
 
 // ─────────── 로딩 ───────────

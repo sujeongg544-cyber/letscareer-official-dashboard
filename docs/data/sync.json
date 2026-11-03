@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-11-02T01:58:39.298Z",
+  "syncedAt": "2026-11-03T03:47:37.046Z",
   "account": "letscareer.official",
   "verifiedUsername": "letscareer.official",
   "igUserId": "17841451879798020",
@@ -11,9 +11,9 @@
     "oldest": "2026-01-01",
     "newest": "2026-10-31"
   },
-  "addedFromAds": 2,
+  "addedFromAds": 3,
   "mergedAdPosts": {
-    "count": 2,
+    "count": 3,
     "sample": [
       {
         "adPost": "https://www.instagram.com/p/DdDsDsaDFzu/",
@@ -22,12 +22,16 @@
       {
         "adPost": "https://www.instagram.com/p/DewuZhqs3wd/",
         "mergedInto": "https://www.instagram.com/p/Ded5XJxmE2-/"
+      },
+      {
+        "adPost": "https://www.instagram.com/p/DfPDX0lsiNX/",
+        "mergedInto": "https://www.instagram.com/p/DetUfoIEs4T/"
       }
     ]
   },
   "adOnlyPosts": 0,
-  "adCount": 257,
-  "adsMatched": 3,
+  "adCount": 258,
+  "adsMatched": 4,
   "adsWithoutPost": 5,
   "adsUnmatched": 249,
   "unmatchedSample": [
@@ -58,8 +62,9 @@
     }
   ],
   "adPostsWithFollows": 0,
-  "adPosts": 2,
+  "adPosts": 3,
   "objectives": [
+    "LINK_CLICKS / AUTOMATIC_OBJECTIVE",
     "LINK_CLICKS / LANDING_PAGE_VIEWS",
     "LINK_CLICKS / LINK_CLICKS",
     "LINK_CLICKS / PROFILE_VISIT",
@@ -68,6 +73,7 @@
   "resultIndicators": [
     "actions:link_click",
     "actions:omni_landing_page_view",
+    "actions:visit_instagram_profile",
     "profile_visit_view"
   ],
   "unsupportedMetrics": {
@@ -78,12 +84,12 @@
   },
   "insightErrors": [
     {
-      "error": "REELS | (#100) The Media Insights API does not support the follows metric for this media product type.",
+      "error": "REELS | (#100) The Media Insights API does not support the profile_visits metric for this media product type.",
       "posts": 4
     },
     {
-      "error": "REELS | (#100) The Media Insights API does not support the profile_visits metric for this media product type.",
-      "posts": 3
+      "error": "REELS | (#100) The Media Insights API does not support the follows metric for this media product type.",
+      "posts": 4
     }
   ]
 }

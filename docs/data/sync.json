@@ -1,15 +1,15 @@
 {
-  "syncedAt": "2026-11-12T03:29:28.246Z",
+  "syncedAt": "2026-11-13T03:02:09.989Z",
   "account": "letscareer.official",
   "verifiedUsername": "letscareer.official",
   "igUserId": "17841451879798020",
   "campaignKeyword": "",
   "startDate": "2026-01-01",
-  "mediaListed": 275,
-  "mediaCount": 276,
+  "mediaListed": 277,
+  "mediaCount": 278,
   "mediaRange": {
     "oldest": "2026-01-01",
-    "newest": "2026-11-11"
+    "newest": "2026-11-12"
   },
   "addedFromAds": 4,
   "mergedAdPosts": {
@@ -77,15 +77,15 @@
     "profile_visit_view"
   ],
   "unsupportedMetrics": {
+    "REELS": [
+      "profile_visits",
+      "follows"
+    ],
     "AD": [
       "views",
       "likes",
       "comments",
       "shares",
-      "profile_visits",
-      "follows"
-    ],
-    "REELS": [
       "profile_visits",
       "follows"
     ]

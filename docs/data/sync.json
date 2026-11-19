@@ -1,15 +1,15 @@
 {
-  "syncedAt": "2026-11-18T03:57:17.609Z",
+  "syncedAt": "2026-11-19T03:56:03.932Z",
   "account": "letscareer.official",
   "verifiedUsername": "letscareer.official",
   "igUserId": "17841451879798020",
   "campaignKeyword": "",
   "startDate": "2026-01-01",
-  "mediaListed": 285,
-  "mediaCount": 288,
+  "mediaListed": 288,
+  "mediaCount": 291,
   "mediaRange": {
     "oldest": "2026-01-01",
-    "newest": "2026-11-18"
+    "newest": "2026-11-19"
   },
   "addedFromAds": 6,
   "mergedAdPosts": {
@@ -92,27 +92,15 @@
   },
   "insightErrors": [
     {
-      "error": "AD | (#100) The Media Insights API does not support the views metric for this media product type.",
-      "posts": 2
-    },
-    {
-      "error": "AD | (#100) The Media Insights API does not support the likes metric for this media product type.",
-      "posts": 2
-    },
-    {
-      "error": "AD | (#100) The Media Insights API does not support the comments metric for this media product type.",
-      "posts": 2
-    },
-    {
       "error": "REELS | (#100) The Media Insights API does not support the profile_visits metric for this media product type.",
-      "posts": 2
-    },
-    {
-      "error": "AD | (#100) The Media Insights API does not support the shares metric for this media product type.",
-      "posts": 2
+      "posts": 4
     },
     {
       "error": "REELS | (#100) The Media Insights API does not support the follows metric for this media product type.",
+      "posts": 4
+    },
+    {
+      "error": "AD | (#100) The Media Insights API does not support the shares metric for this media product type.",
       "posts": 2
     },
     {
@@ -122,6 +110,18 @@
     {
       "error": "AD | (#100) The Media Insights API does not support the follows metric for this media product type.",
       "posts": 2
+    },
+    {
+      "error": "AD | (#100) The Media Insights API does not support the views metric for this media product type.",
+      "posts": 1
+    },
+    {
+      "error": "AD | (#100) The Media Insights API does not support the likes metric for this media product type.",
+      "posts": 1
+    },
+    {
+      "error": "AD | (#100) The Media Insights API does not support the comments metric for this media product type.",
+      "posts": 1
     }
   ]
 }

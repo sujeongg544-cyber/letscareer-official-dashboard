@@ -1,15 +1,15 @@
 {
-  "syncedAt": "2026-11-19T03:56:03.932Z",
+  "syncedAt": "2026-11-20T03:48:37.092Z",
   "account": "letscareer.official",
   "verifiedUsername": "letscareer.official",
   "igUserId": "17841451879798020",
   "campaignKeyword": "",
   "startDate": "2026-01-01",
-  "mediaListed": 288,
-  "mediaCount": 291,
+  "mediaListed": 292,
+  "mediaCount": 295,
   "mediaRange": {
     "oldest": "2026-01-01",
-    "newest": "2026-11-19"
+    "newest": "2026-11-20"
   },
   "addedFromAds": 6,
   "mergedAdPosts": {
@@ -93,11 +93,23 @@
   "insightErrors": [
     {
       "error": "REELS | (#100) The Media Insights API does not support the profile_visits metric for this media product type.",
-      "posts": 4
+      "posts": 5
     },
     {
       "error": "REELS | (#100) The Media Insights API does not support the follows metric for this media product type.",
-      "posts": 4
+      "posts": 5
+    },
+    {
+      "error": "AD | (#100) The Media Insights API does not support the views metric for this media product type.",
+      "posts": 2
+    },
+    {
+      "error": "AD | (#100) The Media Insights API does not support the likes metric for this media product type.",
+      "posts": 2
+    },
+    {
+      "error": "AD | (#100) The Media Insights API does not support the comments metric for this media product type.",
+      "posts": 2
     },
     {
       "error": "AD | (#100) The Media Insights API does not support the shares metric for this media product type.",
@@ -110,18 +122,6 @@
     {
       "error": "AD | (#100) The Media Insights API does not support the follows metric for this media product type.",
       "posts": 2
-    },
-    {
-      "error": "AD | (#100) The Media Insights API does not support the views metric for this media product type.",
-      "posts": 1
-    },
-    {
-      "error": "AD | (#100) The Media Insights API does not support the likes metric for this media product type.",
-      "posts": 1
-    },
-    {
-      "error": "AD | (#100) The Media Insights API does not support the comments metric for this media product type.",
-      "posts": 1
     }
   ]
 }
